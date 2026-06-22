@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciencuadras - Seleccion de Plan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--primary-base:#097AB2;--primary-v2:#006098;--primary-dark:#003A5C;--primary-darkest:#00204D;--secondary:#53A532;--tertiary:#FF9D21;--grayscale-base:#293038;--grayscale-700:#434F5B;--grayscale-600:#5D6F7E;--grayscale-400:#9EADB7;--grayscale-200:#DFE4E7;--grayscale-100:#F0F3F4;--white:#FFFFFF;--btn-radius:2.1rem;--card-radius:8px;--card-shadow:0 4px 12px rgba(0,0,0,0.08)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Montserrat',sans-serif;background:var(--grayscale-100);color:var(--grayscale-base);min-height:100vh}
+    .header{background:var(--white);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 4px rgba(0,0,0,0.06);position:sticky;top:0;z-index:100}
+    .header-left{display:flex;align-items:center;gap:2rem}
+    .logo{display:flex;align-items:center;gap:0.5rem;font-weight:700;font-size:1.1rem;color:var(--grayscale-base);text-decoration:none}
+    .logo-dot{width:12px;height:12px;border-radius:50%;background:var(--secondary)}
+    .nav-links{display:flex;gap:1.5rem}
+    .nav-links a{text-decoration:none;color:var(--grayscale-700);font-size:0.875rem;font-weight:500;transition:color 0.2s}
+    .nav-links a:hover{color:var(--primary-base)}
+    .header-right{display:flex;align-items:center;gap:1rem}
+    .avatar{width:36px;height:36px;border-radius:50%;background:var(--grayscale-200);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:var(--grayscale-600)}
+    .btn-publicar{background:var(--primary-v2);color:var(--white);border:none;padding:0.5rem 1.25rem;border-radius:var(--btn-radius);font-weight:600;font-size:0.875rem;cursor:pointer;transition:background 0.2s}
+    .btn-publicar:hover{background:var(--primary-dark)}
+    .main{max-width:1200px;margin:0 auto;padding:2.5rem 1.5rem}
+    .page-title{text-align:center;margin-bottom:0.5rem;font-size:1.75rem;font-weight:700}
+    .page-title span{color:var(--primary-base)}
+    .page-subtitle{text-align:center;color:var(--grayscale-600);font-size:0.9rem;margin-bottom:1.5rem}
+    .legend{display:flex;justify-content:center;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap}
+    .legend-item{display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--grayscale-700)}
+    .legend-dot{width:10px;height:10px;border-radius:50%}
+    .legend-dot.destacado{background:var(--tertiary)}
+    .legend-dot.ascendido{background:var(--primary-base)}
+    .legend-dot.fotos{background:#9C27B0}
+    .plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;align-items:start}
+    .plan-card{background:var(--white);border-radius:var(--card-radius);border:2px solid var(--grayscale-200);padding:1.75rem 1.5rem;position:relative;transition:transform 0.2s,box-shadow 0.2s}
+    .plan-card:hover{transform:translateY(-4px);box-shadow:var(--card-shadow)}
+    .plan-card.current{border-color:var(--secondary);box-shadow:0 0 0 1px var(--secondary),var(--card-shadow)}
+    .card-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--white);padding:0.15rem 0.75rem;border:1px solid var(--secondary);border-radius:1rem;font-size:0.7rem;color:var(--secondary);font-weight:600;white-space:nowrap}
+    .best-option{color:var(--tertiary);font-size:0.75rem;font-weight:600;margin-bottom:0.25rem}
+    .plan-name{font-size:1.1rem;font-weight:700;color:var(--grayscale-base);margin-bottom:0.5rem}
+    .plan-price{font-size:1.75rem;font-weight:700;color:var(--grayscale-700);margin-bottom:0.25rem}
+    .plan-discount{font-size:0.8rem;color:var(--secondary);font-weight:600}
+    .plan-original-price{font-size:0.75rem;color:var(--grayscale-400);text-decoration:line-through;margin-bottom:1rem}
+    .plan-select{width:100%;padding:0.6rem 1rem;border:1px solid var(--grayscale-200);border-radius:6px;font-size:0.875rem;color:var(--grayscale-700);background:var(--white);cursor:pointer;margin-bottom:1.25rem}
+    .plan-includes-title{font-size:0.8rem;font-weight:600;margin-bottom:0.5rem}
+    .plan-features{list-style:none;margin-bottom:1.5rem}
+    .plan-features li{font-size:0.8rem;color:var(--grayscale-700);padding:0.25rem 0;display:flex;align-items:center;gap:0.4rem}
+    .plan-features li::before{content:"\2713";color:var(--secondary);font-weight:700}
+    .btn-plan{width:100%;padding:0.75rem;border:none;border-radius:var(--btn-radius);font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:0.5rem}
+    .btn-renovar{background:var(--tertiary);color:var(--white)}.btn-renovar:hover{background:#e88a0f}
+    .btn-comprar{background:var(--primary-v2);color:var(--white)}.btn-comprar:hover{background:var(--primary-dark)}
+    .btn-hint{font-size:0.7rem;color:var(--primary-base);text-align:center;margin-top:0.5rem;font-style:italic}
+    .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center}
+    .modal-overlay.active{display:flex}
+    .modal{background:var(--white);border-radius:12px;padding:2rem;max-width:480px;width:90%;position:relative;animation:modalIn 0.3s ease}
+    @keyframes modalIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.25rem;cursor:pointer;color:var(--grayscale-600)}
+    .modal h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem}
+    .modal p{font-size:0.85rem;color:var(--grayscale-700);margin-bottom:0.75rem;line-height:1.5}
+    .modal-actions{display:flex;gap:0.75rem;margin-top:1.5rem}
+    .modal-actions .btn-plan{flex:1}
+    .btn-cancel{background:var(--grayscale-100);color:var(--grayscale-700)}.btn-cancel:hover{background:var(--grayscale-200)}
+    .toast{position:fixed;bottom:2rem;right:2rem;background:var(--primary-darkest);color:var(--white);padding:1rem 1.5rem;border-radius:8px;font-size:0.85rem;display:none;z-index:2000;animation:toastIn 0.3s ease}
+    .toast.active{display:block}
+    @keyframes toastIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+    @media(max-width:768px){.plans-grid{grid-template-columns:1fr}.nav-links{display:none}.header{padding:0 1rem}}
+  </style>
+</head>
+<body>
+  <header class="header"><div class="header-left"><a href="#" class="logo"><span class="logo-dot"></span>ciencuadras</a><nav class="nav-links"><a href="#">Compra</a><a href="#">Arriendo</a><a href="#">Tramites y servicios</a><a href="#">Desde el exterior</a></nav></div><div class="header-right"><div class="avatar">IC</div><button class="btn-publicar">Publicar</button></div></header>
+  <main class="main">
+    <h1 class="page-title">Publica tu <span>inmueble</span></h1>
+    <p class="page-subtitle">Elige un plan para vender o arrendar mas rapido</p>
+    <div class="legend"><div class="legend-item"><span class="legend-dot destacado"></span> Destacado</div><div class="legend-item"><span class="legend-dot ascendido"></span> Ascendido</div><div class="legend-item"><span class="legend-dot fotos"></span> Fotos profesionales</div></div>
+    <div class="plans-grid">
+      <div class="plan-card current"><span class="card-badge">Tu plan actual</span><p class="best-option">&#9733; Mejor opcion</p><h2 class="plan-name">Plan Cuadra Todo 12 meses</h2><p class="plan-price">$4.598.000</p><p class="plan-discount">15% descuento</p><p class="plan-original-price">Antes $5.409.412</p><select class="plan-select"><option>12 meses</option><option>6 meses</option><option>3 meses</option><option>1 mes</option></select><p class="plan-includes-title">Incluye:</p><ul class="plan-features"><li>Maximo 10.000 inmuebles</li><li>Reporte en zona privada</li><li>Cuadra precio Gratis</li><li>30 Ascendidos por mes</li><li>30 Destacados por mes</li></ul><button class="btn-plan btn-renovar" onclick="handleRenovar()">Renovar &#x21bb;</button><p class="btn-hint">Si renueva su mismo plan, va directo al checkout</p></div>
+      <div class="plan-card"><h2 class="plan-name">Plan Inicial 12 meses</h2><p class="plan-price">$1.210.000</p><p class="plan-discount">15% descuento</p><p class="plan-original-price">Antes $1.423.530</p><select class="plan-select"><option>12 meses</option><option>6 meses</option><option>3 meses</option><option>1 mes</option></select><p class="plan-includes-title">Incluye:</p><ul class="plan-features"><li>10 Publicaciones activas todo el mes</li><li>No aplica ascendidos ni destacados</li></ul><button class="btn-plan btn-comprar" onclick="handleComprar('Plan Inicial 12 meses','$1.210.000')">Comprar</button><p class="btn-hint">Si compra este, dispara la MODAL</p></div>
+      <div class="plan-card"><h2 class="plan-name">Plan Impulsa 12 mes Limitado</h2><p class="plan-price">$2.646.000</p><p class="plan-discount">15% descuento</p><p class="plan-original-price">Antes $3.112.942</p><select class="plan-select"><option>12 meses</option><option>6 meses</option><option>3 meses</option><option>1 mes</option></select><p class="plan-includes-title">Incluye:</p><ul class="plan-features"><li>40 Publicaciones Activas por mes</li><li>Reporte en zona privada</li><li>20 ascendidos por mes</li><li>20 destacados por mes</li></ul><button class="btn-plan btn-comprar" onclick="handleComprar('Plan Impulsa 12 mes Limitado','$2.646.000')">Comprar</button><p class="btn-hint">Si compra este, dispara la MODAL</p></div>
+    </div>
+  </main>
+  <div class="modal-overlay" id="modal"><div class="modal"><button class="modal-close" onclick="closeModal()">&times;</button><h3>Confirmar cambio de plan</h3><p>Estas a punto de cambiar tu plan actual por:</p><p><strong id="modal-plan-name">Plan Inicial</strong></p><p>Precio: <strong id="modal-plan-price">$1.210.000</strong></p><p style="font-size:0.8rem;color:var(--grayscale-600);margin-top:0.5rem">Al confirmar, se generara una orden de compra y seras redirigido al checkout.</p><div class="modal-actions"><button class="btn-plan btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn-plan btn-comprar" onclick="confirmCompra()">Confirmar compra</button></div></div></div>
+  <div class="toast" id="toast"></div>
+  <script>
+    function handleRenovar(){showToast('Plan renovado exitosamente. Redirigiendo al checkout...')}
+    function handleComprar(n,p){document.getElementById('modal-plan-name').textContent=n;document.getElementById('modal-plan-price').textContent=p;document.getElementById('modal').classList.add('active')}
+    function closeModal(){document.getElementById('modal').classList.remove('active')}
+    function confirmCompra(){closeModal();showToast('Compra confirmada. Redirigiendo al checkout...')}
+    function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('active');setTimeout(function(){t.classList.remove('active')},3000)}
+    document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal()})
+  </script>
+</body>
+</html>
